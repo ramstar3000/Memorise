@@ -16,6 +16,7 @@ TODO
 - [ ] Add a score to the game
 - [ ] Add a restart button
 - [x] Add a match animation, reward
+    - Animate in the order they were matched
 - [ ] Add a game over screen
 - [ ] Add a game win screen
 - [ ] Add images to the game
