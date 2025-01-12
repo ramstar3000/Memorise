@@ -25,7 +25,7 @@ function flipCard() {
     }
 
     num_flips += 1
-    document.getElementById('flips').textContent = num_flips
+    document.getElementById('flips').innerText = num_flips
 
     if (lockBoard) return;  // Prevent flipping more cards during processing
     if (this === firstCard) return;  // Prevent flipping the same card twice
@@ -112,7 +112,7 @@ function assignCardValues() {
     cards.forEach((card, index) => {
         const value = gameState.shuffledCards[index];
         card.dataset.card = value;  // Assign value to card dataset
-        card.querySelector('.card-inner').textContent = value; // Display the number
+        card.querySelector('.card-inner').innerText = value; // Display the number
     });
 }
 
@@ -140,7 +140,7 @@ function isGameOver() {
 function startTimer() {
     timerInterval = setInterval(() => {
         timeElapsed++;
-        document.getElementById('timer').textContent = timeElapsed; // Update timer display
+        document.getElementById('timer').innerText = timeElapsed; // Update timer display
     }, 1000); // Increment every second
 }
 
@@ -151,7 +151,7 @@ function stopTimer() {
 
 function resetTimer() {
     timeElapsed = 0;
-    document.getElementById('timer').textContent = timeElapsed; // Reset timer display
+    document.getElementById('timer').innerText = timeElapsed; // Reset timer display
     start = false
 }
 
