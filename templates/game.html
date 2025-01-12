@@ -5,73 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Matching Card Game</title>
 
-    <link rel="stylesheet" hrf = "../static/style.css">
+    <link rel="stylesheet" href = "../static/game.css">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-
-        .title {
-            font-size: calc(2rem + 1vw);
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: #333;
-            text-align: center;
-        }
-
-        .game-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            width: 80%;
-            max-width: 600px;
-        }
-
-        .card {
-            width: 100%;
-            padding-top: 70%; /* Maintain aspect ratio */
-            position: relative;
-            background-color: #ffffff;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-        }
-
-        .card-inner {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: transparent;
-            background-color: #ccc;
-            border-radius: 10px;
-        }
-
-        .card.matched .card-inner {
-            background-color: #8BC34A;
-            color: #fff;
-        }
-
-        .card.flipped .card-inner {
-            background-color: #ffffff;
-            color: #333;
-        }
-    </style>
+       
 </head>
 <body>
 
