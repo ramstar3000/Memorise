@@ -10,7 +10,7 @@ body {
 }
 
 .title {
-    margin-top: 10px;
+    margin-top: 3%;
     font-size: calc(2rem + 1vw);
     font-weight: bold;
     margin-bottom: 30px;
@@ -53,14 +53,18 @@ body {
     border-radius: 10px;
 }
 
-.card.matched .card-inner {
-    background-color: #8BC34A;
-    color: #fff;
-}
+
 
 .card.flipped .card-inner {
     background-color: #ffffff;
     color: #333;
+}
+
+.card.matched .card-inner {
+    background-color: hsla(208, 100%, 50%, 0.711);
+    /* opacity: 0.4; */
+
+    color: #000;
 }
 
 .card.flipped::before {
@@ -81,3 +85,28 @@ body {
     margin-bottom: 20px;
     color: #5f4c4c;
 }
+
+.matched {
+    animation: flash 0.5s ease-in-out;
+  }
+
+.finished {
+    animation: flash 0.5s ease-in-out;
+}
+  
+  /* Define the flash animation */
+  @keyframes flash {
+    0% {
+      transform: scale(1);
+      background-color: #fff;
+    }
+    50% {
+      transform: scale(1.1);
+      background-color: hsla(216, 83%, 45%, 0.879); /* Flashing color */
+    }
+    100% {
+      transform: scale(1);
+      background-color: hsl(203, 54%, 58%);
+    }
+  }
+

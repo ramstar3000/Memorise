@@ -63,9 +63,17 @@ function disableCards() {
     // Mark cards as matched
     firstCard.classList.add('matched');
     secondCard.classList.add('matched');
+    
+    firstCard.removeEventListener('click', flipCard);
+    secondCard.removeEventListener('click', flipCard);
+
+    firstCard.classList.add('matched');
+    secondCard.classList.add('matched');
+
+    // Animate matched cards for a short duration, perhaps a flash or something
 
     // Reset the board for the next turn
-    resetBoard();
+    setTimeout(resetBoard, 250);
 }
 
 function unflipCards() {
@@ -132,6 +140,10 @@ function isGameOver() {
 
     if (card_array.every(card => card.classList.contains('matched'))) {
         stopTimer();
+
+        // Do animation for all the cards
+        card_array.forEach(card => card.classList.add('finished'));
+
         return true;
     }
     return false;
