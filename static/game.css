@@ -66,3 +66,17 @@ body {
 .card.flipped::before {
     border-color: rgba(0, 0, 0, 0.5);
 }
+
+.timer {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.flips {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #5f4c4c;
+}

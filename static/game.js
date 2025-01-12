@@ -7,10 +7,26 @@ let lockBoard = false;  // Prevent further clicks while processing cards
 let firstCard = null;   // Reference to the first flipped card
 let secondCard = null;  // Reference to the second flipped card
 
+let start = false
+let start_time = 0
+let timeElapsed = 0;  // Time elapsed in seconds
+let timerInterval;
+
+let num_flips = 0
+
 const cards = document.querySelectorAll('.card'); // Select all cards
+const card_array = Array.from(cards);
 
 function flipCard() {
-    console.log('Card flipped');
+
+    if (! start){
+        startTimer();
+        start = true
+    }
+
+    num_flips += 1
+    document.getElementById('flips').textContent = num_flips
+
     if (lockBoard) return;  // Prevent flipping more cards during processing
     if (this === firstCard) return;  // Prevent flipping the same card twice
 
@@ -25,6 +41,10 @@ function flipCard() {
     // Set this as the second card and check for a match
     secondCard = this;
     checkForMatch();
+
+    // Check if finished
+    isGameOver();
+
 }
 
 function checkForMatch() {
@@ -98,12 +118,46 @@ function assignCardValues() {
 
 function initGame() {
     // Generate card pairs and assign values
+    start = false
+    num_flips = 0
+
     generatePairs();
     assignCardValues();
 
     // Add click event listener to each card
     cards.forEach(card => card.addEventListener('click', flipCard));
 }
+
+function isGameOver() {
+
+    if (card_array.every(card => card.classList.contains('matched'))) {
+        stopTimer();
+        return true;
+    }
+    return false;
+}
+
+function startTimer() {
+    timerInterval = setInterval(() => {
+        timeElapsed++;
+        document.getElementById('timer').textContent = timeElapsed; // Update timer display
+    }, 1000); // Increment every second
+}
+
+function stopTimer() {
+    clearInterval(timerInterval); // Stop the interval
+    console.log('Game over! Time elapsed:', timeElapsed);
+}
+
+function resetTimer() {
+    timeElapsed = 0;
+    document.getElementById('timer').textContent = timeElapsed; // Reset timer display
+    start = false
+}
+
+
+
+
 
 // Start the game
 initGame();
