@@ -1,3 +1,4 @@
+API_KEY2 = "" // Add your API key again here
 
 async function generateImage(description) {
     const apiKey = API_KEY2;

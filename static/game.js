@@ -1,4 +1,4 @@
-
+API_KEY2 = "" // Add your API key again here
 
 // Initialize game state
 let gameState = {
