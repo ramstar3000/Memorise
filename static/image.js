@@ -1,5 +1,4 @@
-API_KEY2 = "" // Add your API key again here
-
+const API_KEY2 = ""
 async function generateImage(description) {
     const apiKey = API_KEY2;
     const dalleApiUrl = 'https://api.openai.com/v1/images/generations';
