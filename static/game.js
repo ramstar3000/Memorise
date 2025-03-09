@@ -1,7 +1,10 @@
+
+
 // Initialize game state
 let gameState = {
     shuffledCards: []
 };
+
 
 let lockBoard = false;  // Prevent further clicks while processing cards
 let firstCard = null;   // Reference to the first flipped card
@@ -115,8 +118,6 @@ function generatePairs() {
 
 function assignCardValues() {
 
-
-
     cards.forEach((card, index) => {
         const value = gameState.shuffledCards[index];
         card.dataset.card = value;  // Assign value to card dataset
@@ -168,6 +169,90 @@ function resetTimer() {
 }
 
 
+async function getImageDescriptions(topic) {
+    const apiKey = API_KEY;
+    const apiUrl = 'https://api.openai.com/v1/chat/completions';
+
+    const prompt = `Generate a list of 8 diverse and creative image descriptions based on the topic: "${topic}". Each description should be unique and imaginative. Seperate each with ||`;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: "gpt-3.5-turbo", // Adjust the model if needed
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.7
+            })
+        });
+
+        const data = await response.json();
+        // console.log(data);
+        const output = data.choices[0].message.content;
+        // console.log(output);
+        return output;
+    } catch (error) {
+        console.error("Error fetching image descriptions:", error);
+    }
+}
+
+
+async function generateImage(description) {
+    const apiKey = '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'; // Replace with your OpenAI API key
+    const dalleApiUrl = 'https://api.openai.com/v1/images/generations';
+
+    try {
+        const response = await fetch(dalleApiUrl, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                model: "dall-e-2", // Cheapest model
+                prompt: description,
+                n: 1, // Generate one image per description
+                size: "512x512" // Smallest (cheapest) resolution
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.data && data.data.length > 0) {
+            return data.data[0].url; // Get the image URL
+        } else {
+            console.error("DALL·E API Error:", data);
+        }
+    } catch (error) {
+        console.error("Error generating image:", error);
+    }
+}
+
+
+// // Example usage
+// getImageDescriptions("Futuristic Cities").then(descriptions => {
+//     document.getElementById("output").innerText = descriptions;
+// });
+
+
+
+function flip() {
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.classList.toggle('flipped'); // Toggle the flipped state
+
+        const cardInner = card.querySelector('.card-inner');
+        if (card.classList.contains('flipped')) {
+            cardInner.style.color = 'black'; // Set text color to black when flipped
+        } else {
+            cardInner.style.color = ''; // Reset to default (CSS handles it)
+        }
+    });
+}
 
 
 

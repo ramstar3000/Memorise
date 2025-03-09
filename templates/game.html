@@ -12,7 +12,25 @@
 </head>
 <body>
 
+
 <div class="title">Memorise</div>
+
+<div class="popup-overlay" id="popup-overlay"></div> 
+<div class="popup" id="theme-popup">
+    <div class="popup-content">
+        <label for="theme-input">Enter a theme:</label>
+        <input type="text" id="theme-input">
+        <button onclick="setTheme()">Submit</button>
+    </div>
+</div>
+
+<div id="theme-popup" class="popup">
+    <div class="popup-content">
+        <label for="theme-input">Enter a theme:</label>
+        <input type="text" id="theme-input">
+        <button onclick="setTheme()">Submit</button>
+    </div>
+</div>
 
 <div class="game-container">
     <!-- Example of cards -->
@@ -71,7 +89,67 @@
 <div class="flips">Flips: <span id="flips">0</span></div>
 
 
+<!--
+Add a button to toggle the visibility of the numbers on the cards
+-->
+<!-- <button id="toggle" onclick="flip()">Toggle Numbers</button> -->
+
+<script>
+    window.onload = function() {
+        document.getElementById("theme-popup").style.display = "block";
+        document.getElementById("popup-overlay").style.display = "block"; // Show blur
+    }
+
+
+    async function fetchDescriptions(theme) {
+    try {
+        const descriptions = await getImageDescriptions(theme);
+        if (descriptions) {
+            const list_descriptions = descriptions.split('||').map(desc => desc.trim());
+            console.log("Processed descriptions:", list_descriptions);
+            return list_descriptions;  // ✅ Return the processed list
+        } else {
+            console.error("Failed to retrieve descriptions.");
+            return [];  // ✅ Return an empty array instead of undefined
+        }
+    } catch (error) {
+        console.error("Error in fetchDescriptions:", error);
+        return [];  // ✅ Handle errors by returning an empty array
+    }
+}
+
+async function setTheme() {
+    let theme = document.getElementById("theme-input").value.trim();
+    console.log("Selected theme:", theme);
+
+    try {
+        const descriptions = await fetchDescriptions(theme);  // ✅ Await the returned list
+        console.log("Fetched descriptions:", descriptions);
+
+        if (descriptions.length > 0) {
+            assignImagesToCards(descriptions);
+            console.log("Images assigned to cards");
+        } else {
+            console.error("No descriptions available");
+        }
+    } catch (error) {
+        console.error("Error in setTheme:", error);
+    }
+
+    // Now I want to hide the popup
+    document.getElementById("theme-popup").style.display = "none";
+    document.getElementById("popup-overlay").style.display = "none"; // Remove blur
+    // document.getElementById("theme-title").textContent = theme;
+
+
+
+    }
+
+</script>
+
 <script src="../static/game.js"></script>
+<script src="../static/image.js"></script>
+
 
 <!-- <script>
     const cards = document.querySelectorAll('.card');
